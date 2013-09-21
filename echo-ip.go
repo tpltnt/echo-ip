@@ -6,7 +6,19 @@ import(
 )
 
 
+// echo function
 func echo(connection net.Conn) {
+     // get remote address
+     clientaddr := connection.RemoteAddr()
+     // convert address string to bytes
+     payload := []byte(clientaddr.String())
+     // send them back
+     connection.Write(payload)
+     // clean up
+     err := connection.Close()
+     if nil != err {
+        log.Println(err)
+     }
 }
 
 
